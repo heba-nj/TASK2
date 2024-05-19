@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'noor';
+  src: url('/src/Components/fonts/AGCRegular.ttf') format('truetype'), 
+}
+body {
+  direction: rtl;
+  font-family: 'noor';
+}
+.hero {
+  background-image: url('./assets/images/image1.jpg');
+  background-size: cover;
+  background-position: top;
+  height: 450px;
+  position: relative;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.input {
+  margin-bottom: 30px;
+  width: 310px;
+  height: 32px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+.span {
+  position: absolute;
+  width: 150px;
+  height: 1px;
+  background-color: #ACACAC;
+}
+.log {
+  background-image: url('./assets/images/image1.jpg');
+  background-size: cover;
+  background-position: top;
+  height: 100vh;
+  position: relative;
+}
+.logg {
+  background-image: linear-gradient(#0A0E3F,#6B48FF);
+  opacity: 0.7;
+  height: 100vh;
+  position: relative;
+  background-size: cover;
+  background-position: top;
+  bottom: 70px;
+  z-index: 0;
+}
+@media screen and (max-width:576px) {
+  .media {
+    display: contents;
+  }
+  .hscreen {
+    margin-top: -710px;
+  }
+}
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  border: 1px dashed #161d6f;
+  display: inline-block;
+  padding: 10px 10px;
+  cursor: pointer;
+  background-color: #e2dddd;
+  border-radius: 10px;
+  width: 80%
+}
+
+
