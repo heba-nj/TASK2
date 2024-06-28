@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import logo from '../../assets/images/Group.svg';
 import { Link } from "react-router-dom";
+import { token } from "../../Api";
 
 function Navbar({isLoggedIn}) {
     const [links,setLinks] = useState(["العقارات","حول","برامج الجنسية ","البيع","المزيد"])

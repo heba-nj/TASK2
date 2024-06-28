@@ -5,8 +5,21 @@ import facebook from '../../assets/images/Facebook Logo.png'
 import apple from '../../assets/images/Apple Logo.png'
 import google from '../../assets/images/logo googleg 48dp.png'
 import { RiUninstallLine } from "react-icons/ri";
+import { useState } from "react"
+import { usePost } from "../../Api"
 
 function Signup() {
+    const [formData,setFormData] = useState({
+        email: "",
+        user_name: "",
+        phone_number: "",
+        password: "",
+        password_confirmation: "",
+        profile_photo: "",
+        certificate: ""
+    })
+    
+    const {handleSubmit,data} = usePost()
     return (
         <section className="font-noor">
             <Card className=" w-70 flex-row max-md:max-w-[100%] max-md:relative pt-[35px]">
@@ -15,15 +28,15 @@ function Signup() {
                     <div className="grid grid-cols-2 max-md:grid max-md:grid-cols-1 max-md:w-[100%]">
                         <div className="p-4 text-[12px] text-thirdColor">
                             <Form.Label>الايميل </Form.Label>
-                            <Form.Control type="email"></Form.Control>
+                            <Form.Control type="email" onChange={(e)=> setFormData({...formData,email:e.target.value})}></Form.Control>
                             <Form.Label>اسم المستخدم </Form.Label>
-                            <Form.Control type="text"></Form.Control>
+                            <Form.Control type="text" onChange={(e)=> setFormData({...formData,user_name:e.target.value})}></Form.Control>
                             <Form.Label>رقم الهاتف  </Form.Label>
-                            <Form.Control type="text"></Form.Control>
-                            <Form.Label className=" ">كلمة المرور</Form.Label>
-                            <Form.Control type="password" className=""></Form.Control>
-                            <Form.Label className=" ">كلمة المرور</Form.Label>
-                            <Form.Control type="password" className="mb-4"></Form.Control>
+                            <Form.Control type="text" onChange={(e)=> setFormData({...formData,phone_number:e.target.value})}></Form.Control>
+                            <Form.Label>كلمة المرور</Form.Label>
+                            <Form.Control type="password" onChange={(e)=> setFormData({...formData,password:e.target.value})}></Form.Control>
+                            <Form.Label>تأكيد كلمة المرور</Form.Label>
+                            <Form.Control type="password" className="mb-4" onChange={(e)=> setFormData({...formData,password_confirmation:e.target.value})}></Form.Control>
                         </div>
                         <div className="">
                             <div className="flex flex-col text-[12px] p-4 pb-1 max-md:p-1">
@@ -32,17 +45,19 @@ function Signup() {
                                 <p className="text-[#5F5F5F] mt-3 mb-0">الحجم الاقصى:2MB </p>
                                 <RiUninstallLine className="w-10 h-10 relative right-64 bottom-14 mr-2 max-lg:hidden max-xl:hidden max-2xl:block" />
                                 </label>
-                                <input id="file-upload" type="file" />
+                                <input id="file-upload" type="file" onChange={(e)=> setFormData({...formData,profile_photo:e.target.files[0]})} />
                             </div>
                             <div className="flex flex-col text-[12px] p-4 pt-0 max-md:p-1">
-                                <label for="file-upload"> اثبات شخصية</label>
-                                <label for="file-upload" className="custom-file-upload max-md:w-[100%]">  اسحب و افلت الصورة هنا او قم برفعها من الملفات
+                                <label for="certificate"> اثبات شخصية</label>
+                                <label for="certificate" className="custom-file-upload max-md:w-[100%]">  اسحب و افلت الصورة هنا او قم برفعها من الملفات
                                 <p className="text-[#5F5F5F] mt-3 mb-0">الحجم الاقصى:1MB </p>
                                 <RiUninstallLine className="w-10 h-10 relative right-64 bottom-14 mr-2 max-lg:hidden max-xl:hidden max-2xl:block" />
                                 </label>
-                                <input id="file-upload" type="file" />
+                                <input id="certificate" type="file" onChange={(e)=> setFormData({...formData,certificate:e.target.files[0]})} />
                             </div>
-                            <button className="bg-secondaryColor border-solid border-[1px] border-secondaryColor text-thirdColor rounded-xl font-bold w-[70%] mr-7  h-10 mb-4 max-md:w-[90%]"> انشاء حساب</button>
+                            <button onClick={()=>{
+                                handleSubmit("https://task5-lina-sulaiman.trainees-mad-s.com/api/auth/register",formData,"/login")
+                            }} className="bg-secondaryColor border-solid border-[1px] border-secondaryColor text-thirdColor rounded-xl font-bold w-[70%] mr-7  h-10 mb-4 max-md:w-[90%]"> انشاء حساب</button>
                             <div className="text-[10px] flex justify-between max-sm:flex max-sm:flex-col max-sm:text-center mr-7">
                                 <p>لديك حساب؟ <Link to='/login'> تسجيل الدخول </Link></p>
                             </div>

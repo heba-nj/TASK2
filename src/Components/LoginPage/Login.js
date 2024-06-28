@@ -4,10 +4,19 @@ import facebook from '../../assets/images/Facebook Logo.png'
 import apple from '../../assets/images/Apple Logo.png'
 import google from '../../assets/images/logo googleg 48dp.png'
 import '../../index.css'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
+import { usePost } from "../../Api"
 
 
 function Login({setIsLoggedIn}) {
+    const [formData,setFormData] = useState({
+        email: "",
+        password: "",
+        phone_number: ""
+    })
+    const {handleSubmit} = usePost()
+    const navigate = useNavigate()
   return (
     <section className="log h-[50vh] pt-[70px] font-noor">
     <div className="logg"></div>
@@ -15,13 +24,18 @@ function Login({setIsLoggedIn}) {
             <CardBody className="max-md:w-[50%]">
                 <h2 className="text-center text-thirdColor text-xl font-bold pt-5 max-md:pt-0">تسجيل الدخول</h2>
                 <div className="p-4 text-[12px] text-thirdColor">
-                    <Form.Label>الايميل او رقم الهاتف</Form.Label>
-                    <Form.Control type="email"></Form.Control>
-                    <Form.Label className="pt-4 ">كلمة المرور</Form.Label>
-                    <Form.Control type="password" className="mb-4"></Form.Control>
-                    <Link to='/' onClick={()=>setIsLoggedIn(true)}>
-                        <button className="bg-secondaryColor border-solid border-[1px] border-secondaryColor text-thirdColor rounded-xl font-bold w-full h-10 mb-4">تسجيل الدخول</button>
-                    </Link>
+                    <Form.Label>الايميل</Form.Label>
+                    <Form.Control type="email" onChange={(e)=> setFormData({...formData,email:e.target.value})}></Form.Control>
+                    <Form.Label className="pt-2 ">كلمة المرور</Form.Label>
+                    <Form.Control type="password" onChange={(e)=> setFormData({...formData,password:e.target.value})} className="mb-2"></Form.Control>
+                    <Form.Label>رقم الهاتف</Form.Label>
+                    <Form.Control type="text" onChange={(e)=> setFormData({...formData,phone_number:e.target.value})} className="mb-3"></Form.Control>
+                    {/*<Link to='/' onClick={()=>setIsLoggedIn(true)}>*/}
+                        <button onClick={()=> {
+                            handleSubmit("https://task5-lina-sulaiman.trainees-mad-s.com/api/auth/login",formData)
+                            navigate("/verify")
+                        }} className="bg-secondaryColor border-solid border-[1px] border-secondaryColor text-thirdColor rounded-xl font-bold w-full h-10 mb-4">تسجيل الدخول</button>
+                    {/*</Link>*/}
                     <div className="text-[10px] flex justify-between max-sm:flex max-sm:flex-col max-sm:text-center">
                         <p>ليس لديك حساب؟ <Link to='/signup'>انشاء حساب</Link></p>
                         <Link to='/verify'>نسيت كلمة المرور</Link>
